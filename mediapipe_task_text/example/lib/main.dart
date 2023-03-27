@@ -16,13 +16,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String _result = 'Unknown';
   final _mediapipeTaskTextPlugin = MediapipeTaskText();
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    initClassifier();
+  }
+
+  Future<void> initClassifier() async {
+      await _mediapipeTaskTextPlugin.initClassifier("model.tflite");
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -55,7 +59,14 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(children: [Text('Running on: $_platformVersion\n'),
+          TextButton(child: Text('Classify the word "terrible"'), onPressed: () async {
+            String classification =
+                await _mediapipeTaskTextPlugin.classify("Terrible") ?? "Unknown";
+            setState(() {
+              _platformVersion = classification;
+            });
+          },)])
         ),
       ),
     );

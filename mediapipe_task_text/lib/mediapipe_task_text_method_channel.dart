@@ -14,4 +14,21 @@ class MethodChannelMediapipeTaskText extends MediapipeTaskTextPlatform {
     final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
+
+  @override
+  Future<String?> classify(String text) async {
+    String? classification = await methodChannel.invokeMethod<String>('classify', <String, String> {
+      'text': text
+    });
+
+    return classification;
+  }
+
+  @override
+  Future<void> initClassifier(String modelPath) async {
+    // TODO Update this to return a result
+    await methodChannel.invokeMethod<String>('initClassifier', <String, String> {
+      'modelPath': modelPath
+    });
+  }
 }

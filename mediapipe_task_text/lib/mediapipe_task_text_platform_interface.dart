@@ -26,4 +26,12 @@ abstract class MediapipeTaskTextPlatform extends PlatformInterface {
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
+  Future<String?> classify(String text) {
+    throw UnimplementedError('classify() has not been implemented.');
+  }
+
+  Future<void> initClassifier(String modelPath) {
+    throw UnimplementedError('initClassifier() has not been implemented');
+  }
 }
